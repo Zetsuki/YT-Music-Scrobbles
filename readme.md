@@ -42,8 +42,7 @@ This script fetches the listening history from YouTube Music and scrobbles the t
 
 You need OAuth credentials to access YouTube Music history. Follow these steps:
 1. Follow instructions on https://ytmusicapi.readthedocs.io/en/stable/setup/oauth.html 
-2. Use `ytmusicapi` to generate an authentication file (`oauth.json`).
-3. Store the client id and client secret in the `.env` file.
+2. Store the client id and client secret in the `.env` file.
 
 ### Last.fm API
 
@@ -62,7 +61,7 @@ python main.py
 ## API Rate Limits
 
 - **YouTube Music API:** Limited to personal account usage. See https://ytmusicapi.readthedocs.io/en/stable/faq.html
-- **Last.fm API:** Allows up to 50 tracks per batch; frequent requests may be rate-limited. See https://www.last.fm/fr/api/tos
+- **Last.fm API:** Allows up to 50 tracks per batch; frequent requests may be rate-limited. See https://www.last.fm/api/tos
 
 ## Sources
 
