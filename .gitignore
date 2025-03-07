@@ -1,5 +1,4 @@
 .env
 venv
-remember.txt
 oauth.json
 __pycache__

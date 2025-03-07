@@ -5,11 +5,9 @@ import datetime
 # does not provide precise timestamps for played tracks.               #
 # This function estimates the UNIX timestamp by assuming that:         #
 # - Tracks marked as "Today" are set to midnight by default.           #
-# - The timestamp for subsequent tracks is calculated by adding the    #
-#   duration of the previous track.                                    #
 # ---------------------------------------------------------------------#
 
-def convert_to_unix(timestamp_iso, previous_track_duration):
+def convert_to_unix(timestamp_iso):
     """
     Converts a given timestamp (ISO format) to a UNIX timestamp.
 
@@ -22,7 +20,7 @@ def convert_to_unix(timestamp_iso, previous_track_duration):
     """
     if "Today" in timestamp_iso:
         today = datetime.datetime.today()
-        return int(today.replace(hour=0, minute=0, second=0).timestamp() + previous_track_duration)
+        return int(today.replace(hour=0, minute=0, second=0).timestamp())
     
     # If not "Today", use current timestamp as fallback
     return int(datetime.datetime.now().timestamp())

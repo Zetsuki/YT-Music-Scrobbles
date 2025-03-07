@@ -16,7 +16,7 @@ YTM_client_secret = os.getenv('YTM_CLIENT_SECRET')
 LFM_client_id = os.getenv('LFM_CLIENT_ID')
 LFM_client_secret = os.getenv('LFM_CLIENT_SECRET')
 LFM_username = os.getenv('LFM_USERNAME')
-LFM_password_hash = pylast.md5(os.getenv('LFM_PASSWORD'))
+LFM_password_hash = os.getenv('LFM_PASSWORD')
 
 # Authenticate with Last.fm
 network = pylast.LastFMNetwork(
@@ -44,8 +44,7 @@ class TrackInfo:
 track_info_array = []
 
 # Process history and extract relevant track information
-iteration = 0
-for track in reversed(history[:200]):  # Process from oldest to newest
+for track in (history[:200]):
     artist = track['artists'][0]['name']
     title = track['title']
     timestamp_iso = track['played']
@@ -56,16 +55,13 @@ for track in reversed(history[:200]):  # Process from oldest to newest
 
     # Process only tracks played today
     if "Today" in timestamp_iso:
-        if iteration == 0:
-            duration_seconds = 0  # First track of the day gets timestamp 0
         track_info = TrackInfo(
             artist=artist,
             title=title,
             album=album,
-            timestamp=utils.convert_to_unix(timestamp_iso, duration_seconds)
+            timestamp=utils.convert_to_unix(timestamp_iso)
         )
         track_info_array.append(track_info)
-        iteration += 1
 
 # Send tracks to Last.fm (Scrobbling)
 for track_info in track_info_array:
