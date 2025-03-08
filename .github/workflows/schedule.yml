@@ -1,0 +1,33 @@
+name: Daily Scrobble
+
+on:
+  schedule:
+    - cron: '59 23 * * *'  
+
+  workflow_dispatch:  
+
+jobs:
+  run_script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cloning repo
+        uses: actions/checkout@v3
+
+      - name: Install python and dependencies
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+      - run: pip install -r requirements.txt
+
+      - name: Setup .env variable
+        run: |
+          echo "YTM_CLIENT_ID=${{ secrets.YTM_CLIENT_ID }}" >> .env
+          echo "YTM_CLIENT_SECRET=${{ secrets.YTM_CLIENT_SECRET }}" >> .env
+          echo "LFM_CLIENT_ID=${{ secrets.LFM_CLIENT_ID }}" >> .env
+          echo "LFM_CLIENT_SECRET=${{ secrets.LFM_CLIENT_SECRET }}" >> .env
+          echo "LFM_USERNAME=${{ secrets.LFM_USERNAME }}" >> .env
+          echo "LFM_PASSWORD=${{ secrets.LFM_PASSWORD }}" >> .env
+
+      - name: Execute script
+        run: python main.py
