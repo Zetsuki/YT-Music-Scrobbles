@@ -29,5 +29,8 @@ jobs:
           echo "LFM_USERNAME=${{ secrets.LFM_USERNAME }}" >> .env
           echo "LFM_PASSWORD=${{ secrets.LFM_PASSWORD }}" >> .env
 
+      - name: Recreate oauth.json
+        run: echo '${{ secrets.OAUTH_JSON }}' > oauth.json
+
       - name: Execute script
         run: python main.py
